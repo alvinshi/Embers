@@ -8,6 +8,7 @@ var MASTER_KEY = process.env.LC_APP_MASTER_KEY || 'oqyVJPDnoHkYmIaISQV5e6GJ';
 AV.init({
     appId : APP_ID,
     appKey : APP_KEY,
+    masterKey : MASTER_KEY,
     region: 'us'});
 // 如果不希望使用 masterKey 权限，可以将下面一行删除
 AV.Cloud.useMasterKey();
