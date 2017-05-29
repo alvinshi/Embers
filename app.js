@@ -1,44 +1,64 @@
 'use strict';
-var express = require('express');
-var timeout = require('connect-timeout');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var AV = require('leanengine');
-var ejs = require('ejs');
+const AV = require('leanengine');
+const express = require('express');
+const timeout = require('connect-timeout');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const ejs = require('ejs');
+const cloud  = require('./cloud');
 
+const app = express();
 
-// 加载云函数定义，你可以将云函数拆分到多个文件方便管理，但需要在主文件中加载它们
-require('./cloud');
-
-var app = express();
-
-// 设置模板引擎
+/*
+ * Set template engine
+ * Note: ejs is not actually used in any way, the site is completely
+ * relying on angularJS
+ */
 app.set('views', path.join(__dirname, 'views'));
 app.engine('.html', ejs.__express);
 app.set('view engine', 'html');
-
 app.use(express.static('public'));
 
-// 设置默认超时时间
+// 15s default time-out
 app.use(timeout('15s'));
 
-// 加载云引擎中间件
+// leancloud middleware
 app.use(AV.express());
 
+// Not sure how this works, needed to be resolved later
+// https://expressjs.com/en/guide/behind-proxies.html
 app.enable('trust proxy');
-// 需要重定向到 HTTPS 可去除下一行的注释。
+// Uncomment the following line for Https request
 // app.use(AV.Cloud.HttpsRedirect());
 
+/*
+ * bodyParser middleware
+ * the parsed info is stored in the req.body field
+ * json : This parser accepts any Unicode encoding of the body and
+ *        supports automatic inflation of gzip and deflate encodings.
+ * urlencoded : This parser accepts only UTF-8 encoding of the body
+ *              and supports automatic inflation of gzip and deflate encodings.
+ *              A new body object containing the parsed data is populated
+ *              on the request object after the middleware (i.e. req.body).
+ *              This object will contain key-value pairs,
+ *              where the value can be a string or array (when extended is false),
+ *              or any type (when extended is true).
+ */
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+/*
+ * cookieParser middleware
+ * req.cookies and req.signedCookies
+ */
 app.use(cookieParser());
 
 // Point to sub-routes;
 app.use('/', require('./routes/index'));
 
 app.use(function(req, res, next) {
-  // 如果任何一个路由都没有返回响应，则抛出一个 404 异常给后续的异常处理器
+  // The request is not caught by any route, throw 404
   if (!res.headersSent) {
     var err = new Error('Not Found');
     err.status = 404;
@@ -49,7 +69,7 @@ app.use(function(req, res, next) {
 // error handlers
 app.use(function(err, req, res, next) {
   if (req.timedout && req.headers.upgrade === 'websocket') {
-    // 忽略 websocket 的超时
+    // ignore websocket timeout, why is that?
     return;
   }
 
@@ -58,13 +78,13 @@ app.use(function(err, req, res, next) {
     console.error(err.stack || err);
   }
   if (req.timedout) {
-    console.error('请求超时: url=%s, timeout=%d, 请确认方法执行耗时很长，或没有正确的 response 回调。', req.originalUrl, err.timeout);
+    console.error('Request Timeout: url=%s, timeout=%d.', req.originalUrl, err.timeout);
   }
   res.status(statusCode);
-  // 默认不输出异常详情
+  // No error msg by default
   var error = {}
   if (app.get('env') === 'development') {
-    // 如果是开发环境，则将异常堆栈输出到页面，方便开发调试
+    // Under development, the error info will be rendered
     error = err;
   }
   res.render('error', {

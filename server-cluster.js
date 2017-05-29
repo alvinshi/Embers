@@ -1,6 +1,6 @@
 var cluster = require('cluster');
 
-// 进程数量建议设置为可用的 CPU 数量
+// number of processes
 var workers = process.env.LEANCLOUD_AVAILABLE_CPUS || 1;
 
 if (cluster.isMaster) {

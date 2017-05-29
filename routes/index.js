@@ -1,6 +1,3 @@
-/**
- * Created by alvin on 4/6/17.
- */
 var router = require('express').Router();
 var AV = require('leanengine');
 var https = require('https');
