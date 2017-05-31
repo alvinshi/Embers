@@ -3,27 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <title>首页</title>
+
+    <!-- Semantics and JQuery -->
+    <link rel="stylesheet" type="text/css" href="libraries/semantic/dist/semantic.min.css">
+    <script
+            src="https://code.jquery.com/jquery-3.1.1.min.js"
+            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+            crossorigin="anonymous"></script>
+    <script src="libraries/semantic/dist/semantic.min.js"></script>
+
     <!--Generic stylesheet-->
-    <link href="style.css" rel="stylesheet">
+    <link href="stylesheets/style.css" rel="stylesheet">
 
     <!--Page specific stylesheet-->
-    <link href="index.css" rel="stylesheet">
+    <link href="stylesheets/index.css" rel="stylesheet">
+
+    <!--Page specific javascripts-->
+    <script src="javascripts/index.js"></script>
 </head>
 <body>
-<div class="Container">
-    <div class="Header">
-        <p>The Header div height is not fixed (But he can be if you want it to)</p>
-        <p>This Layout has been tested on: IE10, IE9, IE8, FireFox, Chrome, Safari, Opera. using Pure CSS 2.1 only</p>
+<div class="ui fixed text menu">
+    <a class="item">
+        <img src="pictures/logo_cn.png"/>
+    </a>
+    <div class="item">
+        庄重地慢慢老去
     </div>
-    <div class="Content">
-        <div class="Wrapper">
-            <div class="RightContent">
-                <p>You can fix the width of this content.</p>
-                <p>if you wont, his width will stretch just as it needs to.</p>
-            </div>
-            <div class="LeftContent">
-                <p>this will scroll</p>
-            </div>
+    <a class="right item">
+        日志
+    </a>
+    <a class="item">
+        图片故事
+    </a>
+    <a class="item">
+        订阅推送
+    </a>
+    <a class="item">
+        联系我们
+    </a>
+    <div class="ui dropdown item">
+        更多
+        <i class="dropdown icon"></i>
+        <div class="menu">
+            <div class="item">关于我们</div>
+            <div class="item">提供帮助</div>
+            <div class="item">投稿</div>
+        </div>
+    </div>
+    <div class="item">
+        <div class="ui icon input">
+            <input type="text" placeholder="搜索...">
+            <i class="search icon"></i>
         </div>
     </div>
 </div>
