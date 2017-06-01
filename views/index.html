@@ -21,8 +21,8 @@
     <!--Page specific javascripts-->
     <script src="javascripts/index.js"></script>
 </head>
-<body>
-<div class="ui fixed text menu">
+<body id="custom">
+<div class="ui text menu paddled" style="z-index: 101">
     <a class="item">
         <img src="pictures/logo_cn.png"/>
     </a>
@@ -54,6 +54,17 @@
         <div class="ui icon input">
             <input type="text" placeholder="搜索...">
             <i class="search icon"></i>
+        </div>
+    </div>
+</div>
+<div class="full_screen_container nav_offset" style = 'background-image: url("pictures/elderly_couple_rain.jpg");
+                                                       text-align : center;'>
+    <div class="ui vertical black basic animated button borderless massive" tabindex="0"
+    style="margin-top : 45vw;
+    color : rgba(0,0,0,0.87)">
+        <div class="hidden content">向下滚动</div>
+        <div class="visible content">
+            <i class="angle double down icon"></i>
         </div>
     </div>
 </div>

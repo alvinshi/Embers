@@ -1,7 +1,32 @@
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  margin : 0;
 }
+
 a {
   color: #00b7ff;
+}
+
+.full_screen_container {
+  width : 100vw;
+  height : 56.7vw;
+  overflow: hidden;
+}
+
+.nav_offset {
+  margin-top : -73px;
+}
+
+.paddled {
+  margin-left : 20px !important;
+  margin-right : 20px !important;
+}
+
+#custom .borderless {
+  border-width : 0px !important;
+  box-shadow : 0 0 0 0px #ffffff inset !important;
+}
+
+#custom .invisible {
+  visibility: hidden;
 }
