@@ -13,6 +13,12 @@ a {
   overflow: hidden;
 }
 
+.half_screen_container {
+  width : 100vw;
+  height : 28.4vw;
+  overflow: hidden;
+}
+
 .nav_offset {
   margin-top : -73px;
 }
@@ -29,4 +35,29 @@ a {
 
 #custom .invisible {
   visibility: hidden;
+}
+
+.theme_background {
+  background: rgba(245, 250, 243, 1);
+}
+
+.theme_font_color {
+  color : rgba(0,0,0,0.87)
+}
+
+.de_bold {
+  font-weight: normal;
+}
+
+.content_padding {
+  padding : 5vw 10vw 5vw 10vw;
+}
+
+hr.invisible_hr {
+  border : none;
+}
+
+hr.margin {
+  margin-top : 30px;
+  margin-bottom: 30px;
 }
